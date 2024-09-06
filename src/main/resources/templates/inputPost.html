@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Form</title>
+</head>
+<body>
+<h1>Create a New Post</h1>
+<form action="/submitPost" method="post">
+    <label for="title">제목 : </label><br>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <div th:if="${isLogin == true}">
+        <label for="author_true">작성자명 : </label><br>
+        <input type="text" id="author_true" name="author" th:value="${name}" readonly><br><br>
+    </div>
+    <div th:if="${isLogin == false}">
+        <label for="author_false">작성자명 : </label><br>
+        <input type="text" id="author_false" name="author" required><br><br>
+    </div>
+
+    <label for="content">내용 : </label><br>
+    <textarea id="content" name="content" rows="10" cols="30" required></textarea><br><br>
+
+    <input type="submit" name="submit" value="작성완료">
+</form>
+</body>
+</html>

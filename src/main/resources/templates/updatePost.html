@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Form</title>
+</head>
+<body>
+<h1>Create a New Post</h1>
+<form action="/updatePost" method="post">
+    <label for="title">제목 : </label><br>
+    <input type="text" id="title" name="title" th:value="${post.title}" required><br><br>
+
+    <label>작성자명 : </label><br>
+    <label th:text="${post.author}"></label><br><br>
+
+    <label for="content">내용 : </label><br>
+    <textarea id="content" name="content" rows="10" cols="30" th:text="${post.content}" required></textarea><br><br>
+
+    <button type="submit" name="submit" th:value="${post.num}">수정 완료</button>
+</form>
+</body>
+</html>

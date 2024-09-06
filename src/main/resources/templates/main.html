@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 작성</title>
+</head>
+<body>
+<h1>게시글 관리</h1>
+
+<ul>
+    <li th:each="item : ${list}">
+        <span th:text="${item.num}"></span>
+        <a th:href="@{/showPost(id=${item.num})}" th:text="${item.title}"></a>
+        <span th:text="${item.author}"></span>
+    </li>
+</ul>
+
+
+<form action="/input" method="post">
+    <button type="submit" name="action">게시글 작성</button>
+    </form>
+
+<div th:if="${isLogin == false}">
+<form action="/join" method="post">
+    <button type="submit" name="newMember">회원가입</button>
+</form>
+<form action="/login" method="get">
+    <button type="submit" name="login">로그인</button>
+</form>
+</div>
+
+<div th:if="${isLogin == true}">
+    <h5 th:text="${name} + '님 반갑습니다'">???</h5>
+    <form action="logout" method="post">
+        <button type="submit" name="logout">로그아웃</button>
+    </form>
+</div>
+
+</body>
+</html>

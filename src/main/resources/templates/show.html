@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 확인</title>
+</head>
+<body>
+<ul>
+    <li th:each="item : ${list}">
+        <h5>제목     </h5>
+        <span th:text="${list.title}"></span><br><br>
+        <h5>작성자</h5>
+        <span th:text="${list.author}"></span><br><br>
+        <h5>내용</h5><br>
+        <span th:text="${list.content}"></span>
+    </li>
+    <form action="/update" method="post">
+        <button type="submit" name="action" th:value="${list.num}">게시글 수정</button>
+    </form>
+    <form action="/delete" method="post">
+        <button type="submit" name="delete" th:value="${list.num}">게시글 삭제</button>
+    </form>
+    <form action="/redirect" method="post">
+        <button type="submit" name="goback" value="뒤로가기">뒤로 가기</button>
+    </form>
+</ul>
+
+
+
+
+</body>
+</html>
