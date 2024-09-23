@@ -16,8 +16,7 @@ public class MemberService {
     public boolean login(String id, String password) {
         Member member = memberRepository.findById(id).orElse(null);
         if(member == null) return false;
-        else if (member.getMemberPassword().equals(password)) return true;
-        else return false;
+        else return member.getMemberPassword().equals(password);
     }
 
     public String join(Member member){

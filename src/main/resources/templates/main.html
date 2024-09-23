@@ -4,37 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 작성</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>게시글 관리</h1>
-
-<ul>
-    <li th:each="item : ${list}">
-        <span th:text="${item.num}"></span>
-        <a th:href="@{/showPost(id=${item.num})}" th:text="${item.title}"></a>
-        <span th:text="${item.author}"></span>
-    </li>
-</ul>
-
-
-<form action="/input" method="post">
-    <button type="submit" name="action">게시글 작성</button>
-    </form>
-
-<div th:if="${isLogin == false}">
-<form action="/join" method="post">
-    <button type="submit" name="newMember">회원가입</button>
-</form>
-<form action="/login" method="get">
-    <button type="submit" name="login">로그인</button>
-</form>
+<div class="container text-bg-secondary align-items-center text-center d-flex justify-content-between">
+    <div class="left-content"><h2>hello world</h2></div>
+    <div class="right-content">
+        <div class="d-flex" th:if="${isLogin == false}">
+            <form action="/join" method="post">
+                <button class="btn btn-light mx-1" name="newMember">회원가입</button>
+            </form>
+            <form action="/login" method="get">
+                <button class="btn btn-dark mx-1" name="login">로그인</button>
+            </form>
+        </div>
+        <div class="d-flex" th:if="${isLogin == true}">
+            <h5 class="mx-1 mt-1" th:text="${name} + '님 반갑습니다'">???</h5>
+            <form action="logout" method="post">
+                <button class="btn btn-danger mx-1" name="logout">로그아웃</button>
+            </form>
+        </div>
+    </div>
 </div>
 
-<div th:if="${isLogin == true}">
-    <h5 th:text="${name} + '님 반갑습니다'">???</h5>
-    <form action="logout" method="post">
-        <button type="submit" name="logout">로그아웃</button>
-    </form>
+<div class="container mt-3">
+    <table class="table table-hover" style="table-layout: auto; width: 100%">
+        <thead class="border-3 border-bottom">
+            <tr>
+                <th style="width: 10%;" class="text-center">게시글 번호</th>
+                <th style="width:70%;" class="text-center">제목</th>
+                <th style="width: 20%;"class="text-center">작성자</th>
+            </tr>
+        </thead>
+        <tbody class="borderless" th:each="item : ${list}" style="cursor: pointer">
+            <tr th:if="${item.num==null}">
+                <th style="width: 10%;"></th>
+                <th class="text-center" style="width: 70%;">게시글이 없습니다.</th>
+                <th style="width: 20%;"></th>
+            </tr>
+            <tr th:if="${item.num!=null}" th:onclick="|location.href='@{/showPost(id=${item.num})}'|">
+                <th style="width: 10%;" class="text-center" th:text="${item.num}"></th>
+                <th style="width: 70%;" th:text="${item.title}"></th>
+                <th style="width: 20%;" class="text-center" th:text="${item.author}"></th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container mt-3 d-flex justify-content-end">
+<form action="/input" method="post">
+    <button class="btn btn-success" name="action">게시글 작성</button>
+</form>
 </div>
 
 </body>

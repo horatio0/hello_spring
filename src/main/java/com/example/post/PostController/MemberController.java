@@ -40,15 +40,16 @@ public class MemberController {
         member.setMemberId(memberId);
         member.setMemberPassword(memberPassword);
         if (memberService.login(member.getMemberId(), member.getMemberPassword())){
-            model.addAttribute("message", "로그인 성공");
-            model.addAttribute("searchUrl", "/");
+            //model.addAttribute("message", "로그인 성공");
+            //model.addAttribute("searchUrl", "/");
             session.setAttribute("id", member.getMemberId());
             session.setMaxInactiveInterval(600);
+            return "redirect:/";
         }else{
             model.addAttribute("message", "로그인 실패");
             model.addAttribute("searchUrl", "/login");
+            return "message";
         }
-        return "message";
     }
 
     @PostMapping("/logout")

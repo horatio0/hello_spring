@@ -27,7 +27,7 @@ public class PostController {
         List<Post> list = postService.getList();
         if(list.isEmpty()) {
             Post p = new Post();
-            p.setAuthor("게시글이 없습니다");
+            p.setNum(null);
             list.add(p);
         }
         return list;
