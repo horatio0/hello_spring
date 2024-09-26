@@ -13,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
+    public String getUserName(String id){
+        return memberRepository.getReferenceById(id).getMemberName();
+    }
+
     public boolean login(String id, String password) {
         Member member = memberRepository.findById(id).orElse(null);
         if(member == null) return false;
