@@ -12,17 +12,17 @@
 <div class="container text-bg-secondary align-items-center text-center d-flex justify-content-between">
     <div class="left-content"><h2>hello world</h2></div>
     <div class="right-content">
-        <div class="d-flex" th:if="${isLogin == false}">
-            <form action="/join" method="post">
+        <div class="d-flex" th:if="${memberName==null}">
+            <form action="/member/join" method="post">
                 <button class="btn btn-light mx-1" name="newMember">회원가입</button>
             </form>
             <form action="/login" method="get">
                 <button class="btn btn-dark mx-1" name="login">로그인</button>
             </form>
         </div>
-        <div class="d-flex" th:if="${isLogin == true}">
-            <h5 class="mx-1 mt-1" th:text="${name} + '님 반갑습니다'">???</h5>
-            <form action="logout" method="post">
+        <div class="d-flex" th:if="${memberName!=null}">
+            <h5 class="mx-1 mt-1" th:text="${memberName} + '님 반갑습니다'">???</h5>
+            <form action="/logout" method="post">
                 <button class="btn btn-danger mx-1" name="logout">로그아웃</button>
             </form>
         </div>
@@ -39,16 +39,19 @@
 
 <div class="container mt-3 align-items-center"><span th:text="${list.content}"></span></div>
 
-
-    <form method="post">
-        <div class="container mt-3 d-flex justify-content-end">
+<div class="container mt-3 d-flex justify-content-end">
+    <form action="/redirect" method="post">
         <button class="btn btn-light" name="go back" onclick="form.action='/redirect'" value="뒤로가기">뒤로 가기</button>
-            &nbsp;
-        <div th:if="${isAuthor==true}">
-            <button class="btn btn-danger" name="delete" onclick="form.action='/delete'" th:value="${list.num}">게시글 삭제</button>
-            <button class="btn btn-primary" name="action" onclick="form.action='/update'" th:value="${list.num}">게시글 수정</button>
-        </div>
-        </div>
     </form>
+    <div th:if="${isAuthor==true}">
+        <form th:action="@{/post/{postNum}(postNum=${list.num})}" method="post">
+            <input type="hidden" name="_method" value="DELETE"/>
+            <button type="submit" class="btn btn-danger" name="delete">게시글 삭제</button>
+        </form>
+        <form th:action="@{/post/{postNum}/edit(postNum=${list.num})}" method="get">
+            <button type="submit" class="btn btn-primary" name="action">게시글 수정</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

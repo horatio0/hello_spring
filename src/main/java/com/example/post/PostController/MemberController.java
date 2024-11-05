@@ -1,6 +1,7 @@
 package com.example.post.PostController;
 
 
+import com.example.post.DTO.joinDTO;
 import com.example.post.Post.*;
 import com.example.post.Service.*;
 import jakarta.servlet.http.HttpSession;
@@ -15,15 +16,14 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService memberService;
 
-    @PostMapping("/join")
+    @GetMapping("/member/join")
     public String newMember(){
         return "join";
     }
 
-    @PostMapping("/getMemberInfo")
-    public String newMemberInfo(Model model, @ModelAttribute @Valid Member member){
-        member.setAdmin(member.getMemberId().equals("관리자"));
-        String a = memberService.join(member);
+    @PostMapping("/member")
+    public String memberJoin(Model model, @ModelAttribute @Valid joinDTO joinDTO){
+        String a = memberService.join(joinDTO);
         model.addAttribute("message", a);
         model.addAttribute("searchUrl", "/");
         return "message";
@@ -34,7 +34,7 @@ public class MemberController {
         return "login";
     }
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public String login(HttpSession session, Model model, @RequestParam String memberId, @RequestParam String memberPassword){
         Member member = new Member();
         member.setMemberId(memberId);
@@ -51,10 +51,8 @@ public class MemberController {
             return "message";
         }
     }
-
-    @PostMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
         return "redirect:/";
-    }
+    }*/
 }

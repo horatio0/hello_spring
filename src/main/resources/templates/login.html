@@ -25,12 +25,14 @@
 <br><br>
 <div class="container justify-content-center align-items-center d-flex">
     <div class="center-box d-flex">
-        <form method="post">
-            <input class="form-control my-3" style="width: 95%;" id="memberId" name="memberId" placeholder="아이디" required>
-            <input class="form-control mb-3" style="width: 95%;" type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호"  required>
+        <form action="/login" method="post">
+            <input class="form-control my-3" style="width: 200px;" id="memberId" name="memberId" placeholder="아이디" required autocomplete="off">
+            <input class="form-control mb-3" style="width: 200px;" type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호"  required>
 
-            <button class="btn btn-success" style="width: 95%;" onclick="form.action='/login'" name="로그인">로그인</button>
-            <button class="btn btn-light" style="width: 95%;" onclick="form.action='/join'" name="회원가입">회원가입</button>
+            <button class="btn btn-success" style="width: 200px;" name="로그인">로그인</button>
+        </form>
+        <form action="/member/join" method="get">
+            <button class="btn btn-light" style="width: 200px;" name="회원가입">회원가입</button>
         </form>
     </div>
 </div>

@@ -26,14 +26,13 @@ public class PostService {
     }
 
     public void update(InputPost inputpost, Long id){
-        Post p = pR.findById(id).get();
+        Post p = pR.getReferenceById(id);
         p.setTitle(inputpost.getTitle());
         p.setContent(inputpost.getContent());
     }
 
     public Post Read(Long id){
-        Post p = pR.findById(id).get();
-        return p;
+        return pR.getReferenceById(id);
     }
 
     public List<Post> getList(){

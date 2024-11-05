@@ -20,5 +20,5 @@ public class Member{
     private String memberName;
     private String memberEmail;
     private String memberPassword;
-    private boolean isAdmin;
+    private String role;
 }

@@ -12,24 +12,25 @@
 <div class="container text-bg-secondary align-items-center text-center d-flex justify-content-between">
     <div class="left-content"><h2>hello world</h2></div>
     <div class="right-content">
-        <div class="d-flex" th:if="${isLogin == false}">
-            <form action="/join" method="post">
+        <div class="d-flex" th:if="${memberName==null}">
+            <form action="/member/join" method="post">
                 <button class="btn btn-light mx-1" name="newMember">회원가입</button>
             </form>
             <form action="/login" method="get">
                 <button class="btn btn-dark mx-1" name="login">로그인</button>
             </form>
         </div>
-        <div class="d-flex" th:if="${isLogin == true}">
-            <h5 class="mx-1 mt-1" th:text="${name} + '님 반갑습니다'">???</h5>
-            <form action="logout" method="post">
+        <div class="d-flex" th:if="${memberName!=null}">
+            <h5 class="mx-1 mt-1" th:text="${memberName} + '님 반갑습니다'">???</h5>
+            <form action="/logout" method="post">
                 <button class="btn btn-danger mx-1" name="logout">로그아웃</button>
             </form>
         </div>
     </div>
 </div>
 
-<form method="post">
+<form th:action="@{/post/{postNum}(postNum=${post.num})}" method="post">
+    <input type="hidden" name="_method" value="PUT">
     <div class="container mt-3 d-flex">
         <div class="col-8 align-items-center"><input class="form-control" id="title" name="title" th:value="${post.title}" required></div>
         <div class="col-1"></div>
@@ -39,8 +40,8 @@
     </div><hr><br>
     <div class="mb-3 container align-items-center"><textarea class="form-control" id="content" name="content" rows="10" cols="30" th:text="${post.content}" required></textarea></div>
     <div class="container d-flex justify-content-end">
-        <button class="btn btn-light" name="back" onclick="form.action='/redirect'" formnovalidate>뒤로 가기</button>
-        <button class="btn btn-success" name="submit" th:value="${post.num}" onclick="form.action='/updatePost'">작성 완료</button>
+        <button type="button" class="btn btn-light" name="back" onclick="location.href='/redirect'" formnovalidate>뒤로 가기</button>
+        <button class="btn btn-success" name="submit">작성 완료</button>
     </div>
 </form>
 </body>

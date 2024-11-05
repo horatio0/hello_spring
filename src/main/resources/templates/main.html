@@ -11,17 +11,17 @@
 <div class="container text-bg-secondary align-items-center text-center d-flex justify-content-between">
     <div class="left-content"><h2>hello world</h2></div>
     <div class="right-content">
-        <div class="d-flex" th:if="${isLogin == false}">
-            <form action="/join" method="post">
+        <div class="d-flex" th:if="${memberName == null}">
+            <form action="/member/join" method="post">
                 <button class="btn btn-light mx-1" name="newMember">회원가입</button>
             </form>
             <form action="/login" method="get">
                 <button class="btn btn-dark mx-1" name="login">로그인</button>
             </form>
         </div>
-        <div class="d-flex" th:if="${isLogin == true}">
-            <h5 class="mx-1 mt-1" th:text="${name} + '님 반갑습니다'">???</h5>
-            <form action="logout" method="post">
+        <div class="d-flex" th:if="${memberName != null}">
+            <h5 class="mx-1 mt-1" th:text="${memberName} + '님 반갑습니다'">???</h5>
+            <form action="/logout" method="post">
                 <button class="btn btn-danger mx-1" name="logout">로그아웃</button>
             </form>
         </div>
@@ -43,7 +43,7 @@
                 <th class="text-center" style="width: 70%;">게시글이 없습니다.</th>
                 <th style="width: 20%;"></th>
             </tr>
-            <tr th:if="${item.num!=null}" th:onclick="|location.href='@{/showPost(id=${item.num})}'|">
+            <tr th:if="${item.num!=null}" th:onclick="|location.href='@{/post/{postNum}(postNum=${item.num})}'|">
                 <th style="width: 10%;" class="text-center" th:text="${item.num}"></th>
                 <th style="width: 70%;" th:text="${item.title}"></th>
                 <th style="width: 20%;" class="text-center" th:text="${item.author}"></th>
@@ -52,10 +52,9 @@
     </table>
 </div>
 <div class="container mt-3 d-flex justify-content-end">
-<form action="/input" method="post">
+<form action="/post/new" method="get">
     <button class="btn btn-success" name="action">게시글 작성</button>
 </form>
 </div>
-
 </body>
 </html>

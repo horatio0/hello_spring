@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,13 +38,13 @@ public class PostController {
     }
 
     @GetMapping("/")
-    public String first(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response){
-        String id = (String) session.getAttribute("id");
-        if (id==null || id.isEmpty()) model.addAttribute("isLogin", false);
-        else {
-            model.addAttribute("isLogin", true);
-            model.addAttribute("name", memberRepository.getReferenceById(id).getMemberName());
+    public String first(Model model, @AuthenticationPrincipal UserDetails userDetails){
+        try {
+            model.addAttribute("memberName", memberRepository.getReferenceById(userDetails.getUsername()).getMemberName());
+        } catch(NullPointerException e){
+            model.addAttribute("memberName", null);
         }
+
         List<Post> list = getAllPosts();
         model.addAttribute("list", list);
         return "main";
@@ -53,58 +55,62 @@ public class PostController {
         return "redirect:/";
     }
 
-    @PostMapping("/input")
-    public String input(Model model, HttpSession session){
-        if (session.getAttribute("id") == null) model.addAttribute("isLogin", false);
-        else {
-            model.addAttribute("isLogin", true);
-            model.addAttribute("name", memberRepository.getReferenceById(session.getAttribute("id").toString()).getMemberName());
+    @GetMapping("/post/new")
+    public String input(Model model, @AuthenticationPrincipal UserDetails userDetails){
+        try {
+            model.addAttribute("memberName", memberRepository.getReferenceById(userDetails.getUsername()).getMemberName());
+        } catch(NullPointerException e){
+            model.addAttribute("memberName", null);
         }
         return "inputPost";
     }
 
-    @PostMapping("/submitPost")
+    @PostMapping("/post")
     public String commit(Model model,@ModelAttribute @Valid InputPost inputPost, @RequestParam String author){
         postService.commit(inputPost, author);
-
         return "redirect:/";
     }
 
-    @GetMapping("/showPost")
-    public String show(Model model, Long id, HttpSession session){
-        Post list = postService.Read(id);
-        model.addAttribute("list", list);
-        if (session.getAttribute("id") == null) model.addAttribute("isLogin", false);
-        else {
-            model.addAttribute("isLogin", true);
-            if(list.getAuthor().equals(memberService.getUserName(session.getAttribute("id").toString()))) model.addAttribute("isAuthor", true);
-            else model.addAttribute("isAuthor", false);
-            model.addAttribute("name", memberRepository.getReferenceById(session.getAttribute("id").toString()).getMemberName());
+    @GetMapping("/post/{postNum}")
+    public String show(Model model,@PathVariable("postNum") Long postNum, @AuthenticationPrincipal UserDetails userDetails){
+        Post post = postService.Read(postNum);
+        model.addAttribute("list", post);
+        try {
+            Member member = memberRepository.getReferenceById(userDetails.getUsername());
+            model.addAttribute("memberName", member.getMemberName());
+            if(post.getAuthor().equals(member.getMemberName())) {
+                model.addAttribute("isAuthor", true);
+            } else {
+                model.addAttribute("isAuthor", false);
+            }
+        } catch(NullPointerException e){
+            model.addAttribute("memberName", null);
+            model.addAttribute("isAuthor", false);
         }
         return "show";
     }
 
-    @PostMapping("/update")
-    public String update(HttpSession session, Model model, @RequestParam("action") Long id){
-        if (session.getAttribute("id") == null) model.addAttribute("isLogin", false);
-        else {
-            model.addAttribute("isLogin", true);
-            model.addAttribute("name", memberRepository.getReferenceById(session.getAttribute("id").toString()).getMemberName());
+    @GetMapping("/post/{postNum}/edit")
+    public String update(@AuthenticationPrincipal UserDetails userDetails, Model model, @PathVariable Long postNum){
+        try {
+            model.addAttribute("memberName", memberRepository.getReferenceById(userDetails.getUsername()).getMemberName());
+        } catch(NullPointerException e){
+            model.addAttribute("memberName", null);
         }
-        Post p = postService.Read(id);
+        Post p = postService.Read(postNum);
         model.addAttribute("post", p);
         return("updatePost");
     }
 
-    @PostMapping("/updatePost")
-    public String updatePost(Model model, @RequestParam("submit") Long id, @ModelAttribute @Valid InputPost inputPost){
-        postService.update(inputPost, id);
+    @PutMapping("/post/{postNum}")
+    public String updatePost(Model model, @PathVariable Long postNum, @ModelAttribute @Valid InputPost inputPost){
+        postService.update(inputPost, postNum);
         return "redirect:/";
     }
 
-    @PostMapping("/delete")
-    public String delete(HttpSession session,Model model, @RequestParam("delete") Long id){
-            postService.delete(id);
+    @DeleteMapping("/post/{postNum}")
+    public String delete(Model model, @PathVariable Long postNum){
+            postService.delete(postNum);
             return "redirect:/";
     }
 }

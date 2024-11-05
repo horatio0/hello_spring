@@ -24,14 +24,14 @@
     <div class="center-box">
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h4>회원가입을 환영합니다.</h4>
-      <input style="width: 80%;" class="form-control my-3" type="text" id="memberName" name="memberName" placeholder="이름" required>
-      <input style="width: 80%;" class="form-control mb-3" type="text" id="memberEmail" name="memberEmail" placeholder="이메일" required>
-      <input style="width: 80%;" class="form-control mb-3" type="text" id="memberId" name="memberId" placeholder="ID" required>
+      <input style="width: 80%;" class="form-control my-3" type="text" id="memberName" name="memberName" placeholder="이름" required autocomplete="off">
+      <input style="width: 80%;" class="form-control mb-3" type="email" id="memberEmail" name="memberEmail" placeholder="이메일" required autocomplete="off">
+      <input style="width: 80%;" class="form-control mb-3" type="text" id="memberId" name="memberId" placeholder="ID" required autocomplete="off">
       <input style="width: 80%;" class="form-control mb-3" type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호"  required>
       </div>
       <div class="d-flex justify-content-end">
         <button style="width: 80px; font-size: 15px" class="btn btn-light me-2" name="back" onclick="form.action='/redirect'" formnovalidate>취소</button>
-        <button class="btn btn-primary me-5" name="submit" onclick="form.action='/getMemberInfo'">회원 가입</button>
+        <button class="btn btn-primary me-5" name="submit" onclick="form.action='/member'">회원 가입</button>
       </div>
     </div>
   </div>
