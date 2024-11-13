@@ -50,7 +50,7 @@ public class PostController {
         return "main";
     }
 
-    @PostMapping("/redirect")
+    @RequestMapping("/redirect")
     public String redirect(){
         return "redirect:/";
     }

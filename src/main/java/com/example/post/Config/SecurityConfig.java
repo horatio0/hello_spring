@@ -2,6 +2,8 @@ package com.example.post.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -15,6 +17,13 @@ public class SecurityConfig {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public RoleHierarchy roleHierarchy() {                      //계층 권한 설정
+        return RoleHierarchyImpl.fromHierarchy("""
+                ROLE_ADMIN > ROLE_USER
+                """);
     }
 
     @Bean
@@ -32,10 +41,10 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/")     //성공시 리다이렉트할 URL
                 .usernameParameter("memberId")      //로그인 폼에서 ID 필드의 name 속성
                 .passwordParameter("memberPassword")        //로그인 폼에서 비밀번호 필드의 name 속성
-                .failureUrl("/login?error=false"));     //실패시 리다이렉트할 URL
+                .failureUrl("/login/fail"));     //실패시 리다이렉트할 URL
 
         http.sessionManagement(session-> session
-                .maximumSessions(1)     //사용자 한명이 가질 수 있는 최대 세션 개수
+                .maximumSessions(1)     //사용자 한명이 가질 수 있는 최대 세션 개수 (다중 로그인 제한)
                 .maxSessionsPreventsLogin(true));       //세션 개수 초과 시 추가 로그인 차단 = true
 
         http.sessionManagement(session -> session
@@ -46,6 +55,7 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/"));        //로그아웃 성공 시 리다이렉트 할 URL
 
         http.csrf(AbstractHttpConfigurer::disable);     //csrf 보호 (위변조 방지 어쩌구 저쩌구)비활성화
+
         return http.build();
     }
 }

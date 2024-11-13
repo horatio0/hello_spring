@@ -1,6 +1,7 @@
 package com.example.post.Service;
 
 
+import com.example.post.DTO.MemberDTO;
 import com.example.post.DTO.joinDTO;
 import com.example.post.Post.Member;
 import com.example.post.Repository.MemberRepository;
@@ -36,7 +37,7 @@ public class MemberService {
             member.setMemberName(joinDTO.getMemberName());
             member.setMemberPassword(bCryptPasswordEncoder.encode(joinDTO.getMemberPassword()));
             member.setMemberEmail(joinDTO.getMemberEmail());
-            member.setRole("user");
+            member.setRole("ROLE_USER");
             memberRepository.save(member);
             return "회원가입이 완료되었습니다.";
         }
@@ -46,16 +47,15 @@ public class MemberService {
         memberRepository.delete(member);
     }
 
-    public String update (joinDTO joinDTO){
-        if(memberRepository.existsById(joinDTO.getMemberId())){
-            return "이미 존재하는 아이디 입니다.";
-        } else {
-            Member m = memberRepository.getReferenceById(joinDTO.getMemberId());
-            m.setMemberName(joinDTO.getMemberName());
-            m.setMemberEmail(joinDTO.getMemberEmail());
-            m.setMemberId(joinDTO.getMemberId());
-            m.setMemberPassword(joinDTO.getMemberPassword());
-            return "회원 정보 수정이 완료되었습니다.";
+    public String update (String memberId, MemberDTO memberDTO){
+        try{
+            Member member = memberRepository.getReferenceById(memberId);
+            member.setMemberName(memberDTO.getMemberName());
+            member.setMemberEmail(memberDTO.getMemberEmail());
+            member.setMemberId(memberDTO.getMemberId());
+        } catch (NullPointerException e){
+            return "오류 : 존재하지 않는 아이디 입니다.";
         }
+        return "수정 성공";
     }
 }

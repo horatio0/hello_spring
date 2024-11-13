@@ -13,7 +13,7 @@
     <div class="left-content"><h2>hello world</h2></div>
     <div class="right-content">
         <div class="d-flex" th:if="${memberName == null}">
-                <form action="/member/join" method="post">
+                <form action="/member/join" method="get">
                     <button class="btn btn-light mx-1" name="newMember">회원가입</button>
                 </form>
                 <form action="/login" method="get">
