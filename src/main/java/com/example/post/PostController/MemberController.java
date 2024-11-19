@@ -60,9 +60,9 @@ public class MemberController {
         return "redirect:/logout";
     }
 
-    @GetMapping("/member/{memberId}/info")
-    public String memberInfo(@PathVariable("memberId") String memberId, Model model){
-        Member member = memberRepository.getReferenceById(memberId);
+    @GetMapping("/member/info")
+    public String memberInfo(@AuthenticationPrincipal UserDetails userDetails ,Model model){
+        Member member = memberRepository.getReferenceById(userDetails.getUsername());
         model.addAttribute("member", member);
         return "userinfo";
     }

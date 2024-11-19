@@ -7,12 +7,13 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 
 @Getter
 @Setter
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table
 public class Post {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,5 @@ public class Post {
     private String title;
     private String content;
     private String author;
-    @CreatedDate
-    private LocalDateTime date;
+    private String date;
 }

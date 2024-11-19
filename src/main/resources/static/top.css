@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+.menu{
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: none;
+    border: none;
+}
+.hanshin{
+    font-family: "Jua", sans-serif;
+    color: black;
+    margin-left: 30px;
+    text-decoration: none;
+    font-size: 40px;
+}
+.left-content{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.join{
+    font-family: "Jua", sans-serif;
+    color: black;
+    background: none;
+    border: none;
+    margin-right: 5px;
+    width: 80px;
+    height: 30px;
+    transition: all 0.5s;
+}
+.join:hover{
+    background-color: white;
+    color: black;
+}
+.login{
+    font-family: "Jua", sans-serif;
+    background: none;
+    border: none;
+    border-bottom: 3px solid black;
+    width: 80px;
+    height: 30px;
+    margin-right: 30px;
+    transition: all 0.5s;
+}
+.login:hover{
+    background-color: black;
+    color: white;
+}
+.logout{
+    font-family: "Jua", sans-serif;
+    background: none;
+    border: 2px solid indianred;
+    color: indianred;
+    margin-right: 30px;
+    width: 80px; height: 30px;
+    transition: all 0.5s;
+}
+.logout:hover{
+    background-color: indianred;
+    color: white;
+}
+.name{
+    margin-top: 20px;
+    margin-right: 10px;
+    font-family: "Jua", sans-serif;
+}
+.myinfo{
+    margin-right: 5px;
+    font-family: "Jua", sans-serif;
+    border: 2px solid black;
+    background: none;
+    width: 80px; height: 30px;
+    transition: all 0.5s;
+}
+.myinfo:hover{
+    background-color: black;
+    color: white;
+}

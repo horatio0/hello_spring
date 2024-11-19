@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+.body{
+    background-color: bisque;
+}
+.back{
+    margin-right: 5px;
+    font-family: "Jua", sans-serif;
+    font-size: 15px;
+    color: black;
+    background: none;
+    border: none;
+    border-bottom: 3px solid black;
+    width: 100px;
+    height: 30px;
+    transition: all 0.5s;
+}
+.back:hover{
+    background-color: black;
+    color: white;
+}
+.delete{
+    margin-right: 5px;
+    font-family: "Jua", sans-serif;
+    font-size: 15px;
+    color: indianred;
+    background: none;
+    border: none;
+    border-bottom: 3px solid indianred;
+    width: 100px;
+    height: 30px;
+    transition: all 0.5s;
+}
+.delete:hover{
+    background-color: indianred;
+    color: white;
+}
+.complete{
+    font-family: "Jua", sans-serif;
+    font-size: 15px;
+    color: deepskyblue;
+    background: none;
+    border: none;
+    border-bottom: 3px solid lightskyblue;
+    width: 100px;
+    height: 30px;
+    transition: all 0.5s;
+}
+.complete:hover{
+    color: black;
+    background-color: lightskyblue;
+}
+.content{
+    margin: 30px 400px 0 50px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-direction: column;
+}
+.title{
+    width: 90%;
+    align-items: center;
+    justify-content: left;
+    display: flex;
+    border: none;
+    border-bottom: 4px solid black;
+}
+.author{
+    width: 90%;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    border: none;
+    border-bottom: 2px solid black;
+}
+.dc{
+    margin: 0;
+    justify-content: left;
+    align-items: center;
+    display: flex;
+}
+.title-input{
+    background: none;
+    outline: none;
+    margin-top: 2px;
+    border: none;
+    width: 100%;
+    font-family: "Jua", sans-serif;
+}
+.title-input::placeholder{
+    font-family: "Jua", sans-serif;
+}
+.author-input{
+    background: none;
+    margin-top: 2px;
+    outline: none;
+    border: none;
+    width: 100%;
+    font-family: "Jua", sans-serif;
+}
+.author-input::placeholder{
+    font-family: "Jua", sans-serif;
+}
+.content-input{
+    background: none;
+    resize: none;
+    margin-top: 2px;
+    outline: none;
+    border: none;
+    width: 100%;
+    font-family: "Jua", sans-serif;
+}
+.content-input::placeholder{
+    font-family: "Jua", sans-serif;
+}
+.table{
+    background: none;
+    border: none;
+    table-layout: auto;
+    width: 100%
+}

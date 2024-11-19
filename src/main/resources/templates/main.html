@@ -4,44 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인 페이지</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <link th:href="@{/top.css}" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link href="top.css" rel="stylesheet">
 </head>
-<body>
-<div class="container text-bg-secondary align-items-center text-center d-flex justify-content-between">
-    <div class="left-content"><h2>hello world</h2></div>
+<body class="body">
+<div class="menu">
+    <div class="left-content">
+        <a class="hanshin" href="/redirect">HANSHIN</a>
+    </div>
     <div class="right-content">
-        <div class="d-flex" th:if="${memberName == null}">
+        <div class="left-content" th:if="${memberName==null}">
             <form action="/member/join" method="get">
-                <button class="btn btn-light mx-1" name="newMember">회원가입</button>
+                <button class="join" name="newMember">회원가입</button>
             </form>
             <form action="/login" method="get">
-                <button class="btn btn-dark mx-1" name="login">로그인</button>
+                <button class="login" name="login">로그인</button>
             </form>
         </div>
-        <div class="d-flex" th:if="${memberName != null}">
-            <h5 class="mx-1 mt-1" th:text="${memberName} + '님 반갑습니다'">???</h5>
-            <form action="/member/leave" method="post">
-                <input type="hidden" name="_method" value="DELETE"/>
-                <button type="submit" class="btn btn-danger" name="delete">회원 탈퇴</button>
+        <div class="left-content" th:if="${memberName!=null}">
+            <h4 class="name" th:text="${memberName}">LoremIpsum</h4>
+            <form style="margin: 0" action="/member/info" method="get">
+                <button class="myinfo" name="myinfo">내 정보</button>
             </form>
-            <form action="/logout" method="post">
-                <button class="btn btn-danger mx-1" name="logout">로그아웃</button>
+            <form style="margin: 0" action="/logout" method="post">
+                <button class="logout" name="logout">로그아웃</button>
             </form>
         </div>
     </div>
 </div>
 
-<div class="container mt-3">
-    <table class="table table-hover" style="table-layout: auto; width: 100%">
-        <thead class="border-3 border-bottom">
+<div style="margin-top: 3px; margin-left: 150px; margin-right: 150px;">
+    <table style="width: 100%">
+        <thead style="width: 100%">
             <tr>
-                <th style="width: 10%;" class="text-center">게시글 번호</th>
-                <th style="width:70%;" class="text-center">제목</th>
-                <th style="width: 20%;"class="text-center">작성자</th>
+                <th style="width: 10%; border-bottom: 1px solid black;">게시글 번호</th>
+                <th style="width: 70%; border-bottom: 1px solid black;">제목</th>
+                <th style="width: 20%; border-bottom: 1px solid black;">작성자</th>
             </tr>
         </thead>
-        <tbody class="borderless" th:each="item : ${list}" style="cursor: pointer">
+        <tbody th:each="item : ${list}" style="cursor: pointer; width: 100%">
             <tr th:if="${item.num==null}">
                 <th style="width: 10%;"></th>
                 <th class="text-center" style="width: 70%;">게시글이 없습니다.</th>
@@ -55,9 +58,9 @@
         </tbody>
     </table>
 </div>
-<div class="container mt-3 d-flex justify-content-end">
+<div style="margin-top: 3px; margin-right: 150px; display: flex; justify-content: right;">
 <form action="/post/new" method="get">
-    <button class="btn btn-success" name="action">게시글 작성</button>
+    <button class="complete" name="action">게시글 작성</button>
 </form>
 </div>
 </body>

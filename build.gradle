@@ -38,9 +38,11 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'mysql:mysql-connector-java:8.0.23'
 }
-
+jar{
+    enable=false;
+}
 tasks.named('test') {
     useJUnitPlatform()
 }

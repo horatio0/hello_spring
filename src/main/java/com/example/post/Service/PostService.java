@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -19,6 +21,9 @@ public class PostService {
 
     public void commit(InputPost inputPost, String author){
         Post p = new Post();
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        p.setDate(now.format(formatter));
         p.setTitle(inputPost.getTitle());
         p.setContent(inputPost.getContent());
         p.setAuthor(author);
